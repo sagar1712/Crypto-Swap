@@ -1,14 +1,14 @@
-import CryptoTable from "@/components/CryptoTable";
-import HeroSection from "@/components/HeroSection";
-import SwapToken from "@/components/SwapToken";
+import CryptoTable from '@/components/CryptoTable';
+import HeroSection from '@/components/HeroSection';
+import SwapToken from '@/components/SwapToken';
 
 export default function Home() {
   return (
-    <main >   
+    <main>
       <HeroSection />
       <section className=" flex flex-col justify-center items-center gap-y-20">
-      <CryptoTable />
-      <SwapToken />
+        <CryptoTable />
+        <SwapToken />
       </section>
     </main>
   );

@@ -1,12 +1,5 @@
 import { Button } from '@/components/ui/button';
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import React from 'react';
 
 interface CryptoAsset {
@@ -47,18 +40,10 @@ const CryptoTable: React.FC = () => {
       <Table>
         <TableHeader>
           <TableRow className="border-b border-gray-700">
-            <TableHead className="text-left text-white text-xl">
-              ASSETS
-            </TableHead>
-            <TableHead className="text-right text-white text-xl">
-              LAST TRADE
-            </TableHead>
-            <TableHead className="text-right text-white text-xl">
-              24H %
-            </TableHead>
-            <TableHead className="text-right text-white text-xl">
-              24H CHANGE
-            </TableHead>
+            <TableHead className="text-left text-white text-xl">ASSETS</TableHead>
+            <TableHead className="text-right text-white text-xl">LAST TRADE</TableHead>
+            <TableHead className="text-right text-white text-xl">24H %</TableHead>
+            <TableHead className="text-right text-white text-xl">24H CHANGE</TableHead>
             <TableHead className="text-white"></TableHead>
           </TableRow>
         </TableHeader>
@@ -71,29 +56,15 @@ const CryptoTable: React.FC = () => {
               </TableCell>
               <TableCell className="text-right">{asset.lastTrade}</TableCell>
               <TableCell
-                className={`text-right ${
-                  asset.change24h.startsWith('-')
-                    ? 'text-red-500'
-                    : 'text-green-500'
-                }`}
-              >
+                className={`text-right ${asset.change24h.startsWith('-') ? 'text-red-500' : 'text-green-500'}`}>
                 {asset.change24h}
               </TableCell>
               <TableCell
-                className={`text-right ${
-                  asset.changeAmount24h.startsWith('-')
-                    ? 'text-red-500'
-                    : 'text-green-500'
-                }`}
-              >
+                className={`text-right ${asset.changeAmount24h.startsWith('-') ? 'text-red-500' : 'text-green-500'}`}>
                 {asset.changeAmount24h}
               </TableCell>
               <TableCell className="text-right">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="bg-green-500 text-white hover:bg-green-600"
-                >
+                <Button variant="outline" size="sm" className="bg-green-500 text-white hover:bg-green-600">
                   Trade
                 </Button>
               </TableCell>

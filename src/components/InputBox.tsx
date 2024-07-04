@@ -25,8 +25,7 @@ const InputBox: React.FC<InputBoxProps> = ({
     <div
       className={`${
         side === 'left' ? 'rounded-l-md' : 'rounded-r-md'
-      } bg-[#1E1E1E] p-4 flex justify-between items-center w-1/2`}
-    >
+      } bg-[#1E1E1E] p-4 flex justify-between items-center w-1/2`}>
       <div>
         <Input
           type="number"
@@ -37,10 +36,7 @@ const InputBox: React.FC<InputBoxProps> = ({
         <p className="ml-8 text-gray-500">${usdValue}</p>
       </div>
       <div className="flex flex-col justify-between text-sm mr-8">
-        <CurrencySelector
-          selectedCurrency={selectedCurrency}
-          onSelectCurrency={onCurrencySelect}
-        />
+        <CurrencySelector selectedCurrency={selectedCurrency} onSelectCurrency={onCurrencySelect} />
         <span className="mt-2">
           Balance: <span className="text-blue-400">{balance}</span>
         </span>

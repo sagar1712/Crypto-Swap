@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import exchangeData from '@/lib/exchange-data';
@@ -21,7 +21,7 @@ const SwapTokens: React.FC = () => {
   const fetchExchangeRate = useCallback(async () => {
     try {
       const response = await fetch(
-        `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${leftCurrency},${rightCurrency}&tsyms=${rightCurrency},USD&api_key=${API_KEY}`
+        `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${leftCurrency},${rightCurrency}&tsyms=${rightCurrency},USD&api_key=${API_KEY}`,
       );
       const data = await response.json();
       const rate = data.RAW[leftCurrency][rightCurrency].PRICE;
@@ -43,7 +43,7 @@ const SwapTokens: React.FC = () => {
 
   const updateValues = useCallback(
     async (amount: string, isLeft: boolean) => {
-      const { rate, leftUsdRate, rightUsdRate } = await fetchExchangeRate() || {};
+      const { rate, leftUsdRate, rightUsdRate } = (await fetchExchangeRate()) || {};
       if (!rate || !leftUsdRate || !rightUsdRate) return;
 
       const numericAmount = parseFloat(amount) || 0;
@@ -62,7 +62,7 @@ const SwapTokens: React.FC = () => {
         setUsdValue(usd);
       }
     },
-    [fetchExchangeRate]
+    [fetchExchangeRate],
   );
 
   const handleLeftInputChange = (value: string) => {
@@ -128,10 +128,7 @@ const SwapTokens: React.FC = () => {
               onCurrencySelect={handleLeftCurrencySelect}
             />
             <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
-              <Button 
-                className="h-14 w-14 rounded-full bg-black hover:bg-black"
-                onClick={handleSwap}
-              >
+              <Button className="h-14 w-14 rounded-full bg-black hover:bg-black" onClick={handleSwap}>
                 <Image src="/swap.svg" alt="swap" fill className="p-2.5" />
               </Button>
             </div>
@@ -145,11 +142,7 @@ const SwapTokens: React.FC = () => {
               onCurrencySelect={handleRightCurrencySelect}
             />
           </div>
-          <Button
-            variant="custom"
-            className="bg-purple-600 hover:bg-purple-700"
-            onClick={handleSwapTokens}
-          >
+          <Button variant="custom" className="bg-purple-600 hover:bg-purple-700" onClick={handleSwapTokens}>
             SWAP TOKENS
           </Button>
           <div className="flex w-full justify-between text-sm">
@@ -159,9 +152,7 @@ const SwapTokens: React.FC = () => {
               </span>
               <span className="text-blue-500">Free exchange</span>
             </div>
-            <div className="text-right text-xs text-gray-500">
-              Updates in 4s
-            </div>
+            <div className="text-right text-xs text-gray-500">Updates in 4s</div>
           </div>
         </CardContent>
       </Card>

@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Check, ChevronDown } from 'lucide-react';
 import React from 'react';
@@ -21,10 +21,7 @@ interface CurrencySelectorProps {
   onSelectCurrency: (currency: string) => void;
 }
 
-const CurrencySelector: React.FC<CurrencySelectorProps> = ({
-  selectedCurrency,
-  onSelectCurrency,
-}) => {
+const CurrencySelector: React.FC<CurrencySelectorProps> = ({ selectedCurrency, onSelectCurrency }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,16 +32,8 @@ const CurrencySelector: React.FC<CurrencySelectorProps> = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[130px] bg-black text-white">
         {currencies.map((currency) => (
-          <DropdownMenuItem
-            key={currency.symbol}
-            onSelect={() => onSelectCurrency(currency.symbol)}
-            className=''
-          >
-            <Check
-              className={`mr-2 h-4 w-4 ${
-                selectedCurrency === currency.symbol ? 'opacity-100' : 'opacity-0'
-              }`}
-            />
+          <DropdownMenuItem key={currency.symbol} onSelect={() => onSelectCurrency(currency.symbol)} className="">
+            <Check className={`mr-2 h-4 w-4 ${selectedCurrency === currency.symbol ? 'opacity-100' : 'opacity-0'}`} />
             {currency.symbol}
           </DropdownMenuItem>
         ))}

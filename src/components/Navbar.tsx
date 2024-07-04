@@ -3,47 +3,41 @@ import Link from 'next/link';
 import { Button } from './ui/button';
 
 const Navbar = () => {
-	return (
-		<nav className="flex justify-between bg-transparent text-white pt-6 px-48">
-			<figure>
-				<img className="h-8 w-48" src="/logo.svg" alt="Logo" />
-			</figure>
-			<article className='flex flex-row gap-x-2'>
-				<Link href="/">
-					<p className="px-3 py-2 rounded-md text-sm font-medium">Exchange</p>
-				</Link>
-				<Link href="/transactions">
-					<p className="px-3 py-2 rounded-md text-sm font-medium">
-						Last Transactions
-					</p>
-				</Link>
-				<Link href="/invite-friends">
-					<p className="px-3 py-2 rounded-md text-sm font-medium">
-						Invite Friend
-					</p>
-				</Link>
-				<Link href="/notifications">
-					<p className="px-3 py-2 rounded-md text-sm font-medium">
-						Notifications
-					</p>
-				</Link>
-			</article>
-			<article className='flex gap-x-4'>
-				<Button variant="custom" className="bg-transparent">
-					LOG IN
-				</Button>
-				<Button variant="custom" className="">
-					SIGN UP
-				</Button>
-			</article>
-		</nav>
-	);
+  return (
+    <nav className="flex justify-between bg-transparent text-white pt-6 px-48">
+      <figure>
+        <img className="h-8 w-48" src="/logo.svg" alt="Logo" />
+      </figure>
+      <article className="flex flex-row gap-x-2">
+        <Link href="/">
+          <p className="px-3 py-2 rounded-md text-sm font-medium">Exchange</p>
+        </Link>
+        <Link href="/transactions">
+          <p className="px-3 py-2 rounded-md text-sm font-medium">Last Transactions</p>
+        </Link>
+        <Link href="/invite-friends">
+          <p className="px-3 py-2 rounded-md text-sm font-medium">Invite Friend</p>
+        </Link>
+        <Link href="/notifications">
+          <p className="px-3 py-2 rounded-md text-sm font-medium">Notifications</p>
+        </Link>
+      </article>
+      <article className="flex gap-x-4">
+        <Button variant="custom" className="bg-transparent">
+          LOG IN
+        </Button>
+        <Button variant="custom" className="">
+          SIGN UP
+        </Button>
+      </article>
+    </nav>
+  );
 };
 
 export default Navbar;
 
 {
-	/* <nav className="text-white">
+  /* <nav className="text-white">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center justify-between">
