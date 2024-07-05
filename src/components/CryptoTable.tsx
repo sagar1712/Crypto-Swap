@@ -66,7 +66,7 @@ const CryptoTable: React.FC = () => {
         <TableHeader>
           <TableRow className="border-b border-gray-700">
             <TableHead className="text-left text-white text-xl">ASSETS</TableHead>
-            <TableHead className="text-right text-white text-xl">LAST TRADE</TableHead>
+            <TableHead className="text-right text-white text-xl">TOTAL TRADE</TableHead>
             <TableHead className="text-right text-white text-xl">24H %</TableHead>
             <TableHead className="text-right text-white text-xl">24H CHANGE</TableHead>
             <TableHead className="text-white"></TableHead>
