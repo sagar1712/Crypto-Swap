@@ -29,44 +29,44 @@ export async function GET() {
 
     const result = await prisma.$queryRaw<QueryResult[]>`
       WITH combined_trades AS (
-        SELECT "initialCurrency" AS currency, "tradeAmount" AS trade_amount, "created_at"
-        FROM "Exchange"
-        UNION ALL
-        SELECT "exchangedCurrency", "tradeAmount", "created_at"
-        FROM "Exchange"
-      ),
-      currency_totals AS (
-        SELECT currency, SUM(trade_amount) AS total_trade_amount
-        FROM combined_trades
-        GROUP BY currency
-      ),
-      last_24h_trades AS (
-        SELECT currency, SUM(trade_amount) AS last_24h_amount
-        FROM combined_trades
-        WHERE "created_at" >= ${twentyFourHoursAgo}
-        GROUP BY currency
-      ),
-      previous_24h_trades AS (
-        SELECT currency, SUM(trade_amount) AS previous_24h_amount
-        FROM combined_trades
-        WHERE "created_at" >= ${fortyEightHoursAgo} AND "created_at" < ${twentyFourHoursAgo}
-        GROUP BY currency
-      )
-      SELECT 
-        ct.currency,
-        ct.total_trade_amount,
-        COALESCE(l.last_24h_amount, 0) AS last_24h_amount,
-        COALESCE(p.previous_24h_amount, 0) AS previous_24h_amount,
-        COALESCE(l.last_24h_amount, 0) - COALESCE(p.previous_24h_amount, 0) AS amount_change,
-        CASE
-          WHEN COALESCE(p.previous_24h_amount, 0) = 0 THEN NULL
-          ELSE (COALESCE(l.last_24h_amount, 0) - COALESCE(p.previous_24h_amount, 0)) * 100.0 / COALESCE(p.previous_24h_amount, 1)
-        END AS percentage_change
-      FROM currency_totals ct
-      LEFT JOIN last_24h_trades l ON ct.currency = l.currency
-      LEFT JOIN previous_24h_trades p ON ct.currency = p.currency
-      ORDER BY ct.total_trade_amount DESC
-    `;
+  SELECT "initialCurrency" AS currency, "tradeAmount" AS trade_amount, "created_at"
+  FROM "Exchange"
+  UNION ALL
+  SELECT "exchangedCurrency", "tradeAmount", "created_at"
+  FROM "Exchange"
+),
+currency_totals AS (
+  SELECT currency, SUM(trade_amount) AS total_trade_amount
+  FROM combined_trades
+  GROUP BY currency
+),
+last_24h_trades AS (
+  SELECT currency, SUM(trade_amount) AS last_24h_amount
+  FROM combined_trades
+  WHERE "created_at" >= ${twentyFourHoursAgo}
+  GROUP BY currency
+),
+previous_24h_trades AS (
+  SELECT currency, SUM(trade_amount) AS previous_24h_amount
+  FROM combined_trades
+  WHERE "created_at" >= ${fortyEightHoursAgo} AND "created_at" < ${twentyFourHoursAgo}
+  GROUP BY currency
+)
+SELECT 
+  ct.currency,
+  ct.total_trade_amount,
+  COALESCE(l.last_24h_amount, 0) AS last_24h_amount,
+  COALESCE(p.previous_24h_amount, 0) AS previous_24h_amount,
+  COALESCE(l.last_24h_amount, 0) - COALESCE(p.previous_24h_amount, 0) AS amount_change,
+  CASE
+    WHEN COALESCE(p.previous_24h_amount, 0) = 0 THEN NULL
+    ELSE (COALESCE(l.last_24h_amount, 0) - COALESCE(p.previous_24h_amount, 0)) * 100.0 / COALESCE(p.previous_24h_amount, 1)
+  END AS percentage_change
+FROM currency_totals ct
+LEFT JOIN last_24h_trades l ON ct.currency = l.currency
+LEFT JOIN previous_24h_trades p ON ct.currency = p.currency
+WHERE ct.currency != 'USD'
+ORDER BY ct.total_trade_amount DESC`;
 
     const serializedResult: SerializedQueryResult[] = result.map((row) => ({
       currency: row.currency,
