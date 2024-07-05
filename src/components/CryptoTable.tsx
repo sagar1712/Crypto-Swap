@@ -38,7 +38,6 @@ const CryptoTable: React.FC = () => {
     const fetchData = async () => {
       try {
         const data = await getTrades();
-        console.log(data);
         setAssets(data);
         setLoading(false);
       } catch (err) {
