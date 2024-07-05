@@ -1,7 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import exchangeData from '@/lib/exchange-data';
 import { Settings } from 'lucide-react';
 import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -98,9 +97,9 @@ const SwapTokens: React.FC = () => {
         console.error('Invalid trade amount');
         return;
       }
-      const result = await exchangeData(leftCurrency, rightCurrency, tradeAmount);
+      // const result = await exchangeData(leftCurrency, rightCurrency, tradeAmount);
       toast.success('Trade recorded successfully!');
-      console.log('Trade recorded:', result);
+      // console.log('Trade recorded:', result);
     } catch (error) {
       toast.error('Failed to record trade. Please try again.');
       console.error('Error recording trade:', error);
