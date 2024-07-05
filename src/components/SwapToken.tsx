@@ -1,21 +1,25 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Settings } from 'lucide-react';
+import createTrade from '@/lib/create-trade';
+import { Loader2, Settings } from 'lucide-react';
 import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import InputBox from './InputBox';
+import { useToast } from './ui/use-toast';
 
 const API_KEY = 'YOUR_CRYPTOCOMPARE_API_KEY'; // Replace with your actual API key
 
 const SwapTokens: React.FC = () => {
+  const { toast } = useToast();
+
   const [leftCurrency, setLeftCurrency] = useState('BTC');
   const [rightCurrency, setRightCurrency] = useState('ETH');
   const [leftValue, setLeftValue] = useState('');
   const [rightValue, setRightValue] = useState('');
   const [usdValue, setUsdValue] = useState('0.00');
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchExchangeRate = useCallback(async () => {
     try {
@@ -38,7 +42,7 @@ const SwapTokens: React.FC = () => {
     fetchExchangeRate().then(() => {
       updateValues(leftValue, true);
     });
-  }, [fetchExchangeRate, leftValue]);
+  }, [leftValue]);
 
   const updateValues = useCallback(
     async (amount: string, isLeft: boolean) => {
@@ -92,17 +96,27 @@ const SwapTokens: React.FC = () => {
 
   const handleSwapTokens = async () => {
     try {
+      setIsLoading(true);
       const tradeAmount = parseFloat(usdValue);
       if (isNaN(tradeAmount)) {
         console.error('Invalid trade amount');
         return;
       }
-      // const result = await exchangeData(leftCurrency, rightCurrency, tradeAmount);
-      toast.success('Trade recorded successfully!');
-      // console.log('Trade recorded:', result);
+      const result = await createTrade(leftCurrency, rightCurrency, tradeAmount);
+      toast({
+        title: 'Success',
+        description: 'Trade successfully created!',
+      });
+      return result;
     } catch (error) {
-      toast.error('Failed to record trade. Please try again.');
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: "Trade Couldn't be created!",
+      });
       console.error('Error recording trade:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -141,8 +155,8 @@ const SwapTokens: React.FC = () => {
               onCurrencySelect={handleRightCurrencySelect}
             />
           </div>
-          <Button variant="custom" className="bg-purple-600 hover:bg-purple-700" onClick={handleSwapTokens}>
-            SWAP TOKENS
+          <Button variant="custom" className="bg-purple-600 hover:bg-purple-700 w-32" onClick={handleSwapTokens}>
+            {isLoading ? <Loader2 className="animate-spin" /> : 'SWAP TOKENS'}
           </Button>
           <div className="flex w-full justify-between text-sm">
             <div className="flex flex-col">

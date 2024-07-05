@@ -11,9 +11,11 @@ import React from 'react';
 const currencies = [
   { symbol: 'BTC', name: 'Bitcoin' },
   { symbol: 'ETH', name: 'Ethereum' },
-  { symbol: 'USDT', name: 'Tether' },
-  { symbol: 'BNB', name: 'Binance Coin' },
-  { symbol: 'XRP', name: 'Ripple' },
+  { symbol: 'USD', name: 'Tether' },
+  { symbol: 'ALGO', name: 'Algorand' },
+  { symbol: 'DOT', name: 'Polkadot' },
+  { symbol: 'UNI', name: 'Uniswap' },
+  { symbol: 'COMP', name: 'Compound' },
 ];
 
 interface CurrencySelectorProps {
