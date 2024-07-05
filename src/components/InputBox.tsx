@@ -31,7 +31,7 @@ const InputBox: React.FC<InputBoxProps> = ({
           type="number"
           value={value}
           onChange={(e) => onInputChange(e.target.value)}
-          className="text-3xl ml-4 font-bold bg-transparent border-none w-48"
+          className="text-3xl ml-4 font-bold bg-transparent w-48"
         />
         <p className="ml-8 text-gray-500">${usdValue}</p>
       </div>
