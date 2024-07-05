@@ -1,5 +1,3 @@
-import CryptoTable from './CryptoTable';
-
 const HeroSection = () => {
   return (
     <div className="flex flex-col justify-center text-center text-white">
